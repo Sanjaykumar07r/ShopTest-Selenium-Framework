@@ -49,6 +49,15 @@ public class CartPage {
     public String getCurrentUrl(){
         return driver.getCurrentUrl();
     }
+    public void removeBackpack() {
+        driver.findElement(By.id("remove-sauce-labs-backpack")).click();
+    }
+    public boolean isBackpackDisplayed() {
+        return driver.getPageSource().contains("Sauce Labs Backpack");
+    }
+    public void continueShopping() {
+        driver.findElement(By.id("continue-shopping")).click();
+    }
 
 
 }
