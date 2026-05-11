@@ -14,6 +14,7 @@ public class LoginTest extends BaseTest {
         cartPage.enterPassword("secret_sauce");
         cartPage.clickLogin();
     }
+
     @Test
     public void verifyLockedOutUser(){
         CartPage loginPage = new CartPage(driver, wait);
@@ -28,5 +29,15 @@ public class LoginTest extends BaseTest {
         loginPage.clickLogin();
         String error = loginPage.getErrorMessage();
         Assert.assertTrue(error.contains("Username is required"));
+    }
+    @Test
+    public void verifyLogout(){
+
+        CartPage loginPage = new CartPage(driver, wait);
+        loginPage.login("standard_user", "secret_sauce");
+        loginPage.clickMenu(); // logging in
+        loginPage.clickLogout(); //checkin out
+        String currentUrl = loginPage.getCurrentUrl();
+        Assert.assertTrue(currentUrl.contains("saucedemo"));
     }
 }
