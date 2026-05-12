@@ -1,11 +1,23 @@
 package tests;
 
 import base.BaseTest;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.CartPage;
 
+import java.io.FileReader;
+import java.io.IOException;
+
 public class LoginTest extends BaseTest {
+    @DataProvider(name = "loginData")
+    public Object[][] loginData() throws IOException, InterruptedException, CsvException {
+        CSVReader reader = new CSVReader(new FileReader("src/main/resources/data.csv"));
+        return reader.readAll().toArray(Object[][]::new);
+    }
+
 
     @Test
     public void verifyLogin(){
@@ -14,6 +26,7 @@ public class LoginTest extends BaseTest {
         cartPage.enterPassword("secret_sauce");
         cartPage.clickLogin();
     }
+
 
     @Test
     public void verifyLockedOutUser(){

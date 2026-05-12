@@ -42,5 +42,16 @@ public class CartTest extends BaseTest {
         cartPage.removeBackpack();
         Assert.assertFalse(cartPage.isBackpackDisplayed());
     }
+    @Test
+    public void verifyCartRetainsProduct() {
+        login();
+        ProductPage productPage = new ProductPage(driver, wait);
+        CartPage cartPage = new CartPage(driver, wait);
+        productPage.addBackpackToCart();
+        productPage.openCart();
+        cartPage.continueShopping();
+        productPage.openCart();
+        Assert.assertTrue(cartPage.isBackpackDisplayed());
+    }
 
 }
