@@ -1,6 +1,7 @@
 package tests;
 
 import base.BaseTest;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -12,13 +13,37 @@ import java.time.Duration;
 
 public class CheckoutTest extends BaseTest {
     public void login(){
-        driver.findElement(org.openqa.selenium.By.id("user-name")).sendKeys(config.getUsername());
-        driver.findElement(org.openqa.selenium.By.id("password")).sendKeys(config.getPassword());
-        driver.findElement(org.openqa.selenium.By.id("login-button")).click();
-        driver.findElement(org.openqa.selenium.By.id("react-burger-menu-btn")).click();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(org.openqa.selenium.By.id("reset_sidebar_link"))).click();
-        wait.until(ExpectedConditions.elementToBeClickable(org.openqa.selenium.By.id("react-burger-cross-btn"))).click();
+
+        driver.get(config.getBaseUrl());
+
+        driver.findElement(By.id("user-name"))
+                .sendKeys(config.getUsername());
+
+        driver.findElement(By.id("password"))
+                .sendKeys(config.getPassword());
+
+        driver.findElement(By.id("login-button"))
+                .click();
+
+        WebDriverWait wait =
+                new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        wait.until(ExpectedConditions.urlContains("inventory"));
+
+        driver.findElement(
+                        By.id("react-burger-menu-btn"))
+                .click();
+
+        wait.until(ExpectedConditions.elementToBeClickable(
+                        By.id("reset_sidebar_link")))
+                .click();
+
+        wait.until(ExpectedConditions.elementToBeClickable(
+                        By.id("react-burger-cross-btn")))
+                .click();
+
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(
+                By.className("bm-menu-wrap")));
     }
 
     @Test

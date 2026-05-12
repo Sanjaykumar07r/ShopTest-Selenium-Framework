@@ -1,0 +1,43 @@
+name: Run Java Tests
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Run Maven Tests
+        run: mvn test
+
+      - name: Send HTML Report Mail
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSCODE }}
+
+          subject: Automation Test Report
+
+          to: sanjaykumarkrce@gmail.com
+          from: GitHub Actions
+
+          html_body: |
+            Automation test execution completed.
+
+          attachments: target/surefire-reports/emailable-report.html
