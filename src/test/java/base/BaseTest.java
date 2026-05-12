@@ -22,6 +22,9 @@ public class BaseTest {
         public void setup() {
             WebDriverManager.chromedriver().setup();
             ChromeOptions options = new ChromeOptions();
+            options.addArguments("--headless=new");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-dev-shm-usage");
             options.addArguments("--disable-save-password-bubble");
             options.addArguments("--disable-notifications");
             options.addArguments("--disable-popup-blocking");
