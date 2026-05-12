@@ -8,9 +8,9 @@ import pages.ProductPage;
 public class ProblemUserTest extends BaseTest {
 
     public void loginProblemUser(){
-        driver.get("https://www.saucedemo.com/");
-        driver.findElement(org.openqa.selenium.By.id("user-name")).sendKeys("problem_user");
-        driver.findElement(org.openqa.selenium.By.id("password")).sendKeys("secret_sauce");
+        driver.get(config.getBaseUrl());
+        driver.findElement(org.openqa.selenium.By.id("user-name")).sendKeys("problem_user"); // here config will not work as another username used
+        driver.findElement(org.openqa.selenium.By.id("password")).sendKeys(config.getPassword());
         driver.findElement(org.openqa.selenium.By.id("login-button")).click();
     }
 
